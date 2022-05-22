@@ -1,0 +1,38 @@
+{
+    "name": "beter/yii2-beter-logging",
+    "description": "Bulletproof logging for enterprise yii2 projects: monolog 2.x integration, custom LogTarget with delayed queue, pretty console handler, logstash via udp and tcp with deep yii2 integration.",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "keywords": [
+        "monolog", "yii", "log", "logger", "yii2", "yii2 monolog", "yii monolog", "logstash", "console",
+        "yii2-log", "yii2-logger", "yii2-monolog", "yii-monolog", "yii logstash"
+    ],
+    "autoload": {
+        "psr-4": {
+            "Beter\\Yii2BeterLogging\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dmitry Menshikov",
+            "email": "d.menshikov@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.2.5",
+        "yiisoft/yii2": "^2.0",
+        "monolog/monolog": "^2",
+        "psr/log": "^1"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true
+        }
+    }
+}
