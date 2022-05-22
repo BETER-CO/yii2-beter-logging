@@ -113,6 +113,7 @@ the component and monolog channel name* as was specified in `targetLogComponent`
                     'name' => 'logstash',
                     'label' => 'logstash',
                     'level' => 'debug',
+                    'bubble' => true,
                     'host' => '1.2.3.4', // or host.address.com
                     'port' => 5045,
                     'socket_transport' => 'tcp',
@@ -120,6 +121,7 @@ the component and monolog channel name* as was specified in `targetLogComponent`
                     'socket_timeout' => 1,
                     'writing_timeout' => 1,
                     'connection_timeout' => 1,
+                    'max_handle_errors_before_disabling' => 3,
                     'formatter' => [
                         'name' => 'logstash',
                         'trace_depth' => 10,
@@ -129,6 +131,7 @@ the component and monolog channel name* as was specified in `targetLogComponent`
                     'name' => 'standard_stream',
                     'stream' => 'php://stderr',
                     'level' => 'debug',
+                    'bubble' => true,
                     'formatter' => [
                         'name' => 'console',
                         'colorize' => true,
@@ -138,6 +141,7 @@ the component and monolog channel name* as was specified in `targetLogComponent`
                 ],
                 [
                     'name' => 'firephp',
+                    'bubble' => false,
                     'formatter' => [
                         'name' => 'wildfire',
                     ]
