@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  yii2-beter-logging-php:
+    container_name: "yii2-beter-logging-php"
+    hostname: "yii2-beter-logging-php"
+    build:
+      context: .
+      dockerfile: "php.dev.Dockerfile"
+    volumes:
+      - "./:/var/www/html"
+      - "./:/yii2-beter-logging"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  yii2-beter-logging-nginx:
+    container_name: "yii2-beter-logging-nginx"
+    image: "nginx:1.21.6-alpine"
+    ports:
+      - "${HOST_NGINX_PORT:?Port value must be specified}:80"
+    volumes:
+      - "./deploy/data/nginx/root/etc/nginx/nginx.conf:/etc/nginx/nginx.conf"
+      - "./deploy/data/nginx/root/etc/nginx/conf.d:/etc/nginx/conf.d"
+    depends_on:
+      - "yii2-beter-logging-php"
