@@ -4,6 +4,7 @@
 
 - MonologComponent must not throw Exceptions if YII_DEBUG is enabled
 [[#1](https://github.com/BETER-CO/yii2-beter-logging/issues/1)].
+- Redundant new line before `log.trace` output in the `console` formatter.
 
 ### 1.0.0
 

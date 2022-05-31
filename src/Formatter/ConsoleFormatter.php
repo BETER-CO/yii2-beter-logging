@@ -197,7 +197,7 @@ class ConsoleFormatter extends LineFormatter
             );
         }
         return $this->colorize(
-            sprintf("\n%s[log.trace]\n%s\n", $this->addIndent(), implode("\n", $lines)),
+            sprintf("%s[log.trace]\n%s\n", $this->addIndent(), implode("\n", $lines)),
             static::COLOR_EXCEPTION_STACKTRACE
         );
     }
