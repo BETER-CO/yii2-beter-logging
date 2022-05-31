@@ -118,15 +118,17 @@ class ConsoleFormatter extends LineFormatter
         $output .= " " . $this->colorize($vars['message'], $levelColor);
         $output .= "\n";
 
-        if (isset($vars['fields']['exception'])) {
-            $output .= $vars['fields']['exception'];
-        } elseif (isset($vars['fields']['log.trace'])) {
-            $output .= $this->formatLogTrace($vars['fields']['log.trace']);
+        if (isset($vars['fields']['log.category']) && !empty($vars['fields']['log.category'])) {
+            $output .= sprintf(
+                "\n%s[category] %s\n",
+                $this->addIndent(),
+                $this->colorize($this->stringify($vars['fields']['log.category']), $levelColor)
+            );
         }
 
         if (isset($vars['fields']['extra'])) {
             $output .= sprintf(
-                "%sFields.extra: %s\n",
+                "%s[fields.extra] %s\n",
                 $this->addIndent(),
                 $this->colorize(json_encode($vars['fields']['extra']), $levelColor)
             );
@@ -134,10 +136,16 @@ class ConsoleFormatter extends LineFormatter
 
         if (isset($vars['fields']['context'])) {
             $output .= sprintf(
-                "%sFields.context: %s\n",
+                "%s[fields.context] %s\n",
                 $this->addIndent(),
                 $this->colorize(json_encode($vars['fields']['context']), $levelColor)
             );
+        }
+
+        if (isset($vars['fields']['exception'])) {
+            $output .= $vars['fields']['exception'];
+        } elseif (isset($vars['fields']['log.trace'])) {
+            $output .= $this->formatLogTrace($vars['fields']['log.trace']);
         }
 
         return $output;
@@ -165,7 +173,7 @@ class ConsoleFormatter extends LineFormatter
                 ':' . $throwable->getLine(), static::COLOR_EXCEPTION_TITLE);
 
         if ($this->includeStacktraces) {
-            $str .= $this->colorize($this->stacktracesParser($throwable), static::COLOR_EXCEPTION_STACKTRACE);
+            $str .= "\n" . $this->colorize($this->stacktracesParser($throwable), static::COLOR_EXCEPTION_STACKTRACE);
         }
 
         return $str;
