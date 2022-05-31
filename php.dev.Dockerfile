@@ -27,4 +27,13 @@ RUN set -eux; \
 COPY ./deploy/data/php/root/ /
 
 RUN set -eux; \
+    export YII2_BETER_LOGGING_VERSION="1.0.0"; \
+    export \
+      YII2_BETER_LOGGING_URL="https://github.com/BETER-CO/yii2-beter-logging/archive/refs/tags/${YII2_BETER_LOGGING_VERSION}.tar.gz" \
+      YII2_BETER_LOGGING_ARCH_DIR="yii2-beter-logging-${YII2_BETER_LOGGING_VERSION}" \
+    ; \
+    curl -fsSL -o /yii2-beter-logging.tar.gz "$YII2_BETER_LOGGING_URL"; \
+    tar -xzf /yii2-beter-logging.tar.gz -C /tmp/; \
+    rm /yii2-beter-logging.tar.gz; \
+    mv /tmp/${YII2_BETER_LOGGING_ARCH_DIR} /yii2-beter-logging; \
     composer update

@@ -24,13 +24,23 @@ container.
 9. Copy the content of the `/var/www/html` folder from the container to the host machine. Run it from the root path
 of this repository - `docker cp -L yii2-beter-logging-php-tmp-for-copy:/var/www/html yii-test-app-src`.
 10. Folder `yii-test-app-src` is included to `.gitignore`, so it must not bother you.
-11. Run containers after that. `docker-compose -f docker-compose.dev.yml -p yii2-beter-logging up`.
+11. Delete container for copying `docker rm -f yii2-beter-logging-php-tmp-for-copy`.
+12. Run containers after that. `docker-compose -f docker-compose.dev.yml -p yii2-beter-logging up`.
+
+> `docker-compose` without `-build` flag will not rebuild the Docker image created with `docker build`. Add this flag
+> if yuu need rebuild image after initial launch.
+
+`docker-compose` will mount all necessary volumes to make it possible develop and debug application.
 
 > By default, nginx listens port 8080. You may change this port by specifying environment variable `HOST_NGINX_PORT`.
 > For example, to run nginx on port 8280 run `docker-compose -f docker-compose.dev.yml -p yii2-beter-logging up`
 
 `docker-compose` will run in foreground, so you will see `stderr` logs and may test this application.
 If you want you may run containers in a background mode (add `-d` option after `docker-compose up`).
+
+## Play
+
+Open `http://localhost:8080/beter-logging` (or specify custom part as it was specified in `HOST_NGINX_PORT` env var).
 
 ## Tips
 
