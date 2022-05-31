@@ -8,7 +8,7 @@ services:
       context: .
       dockerfile: "php.dev.Dockerfile"
     volumes:
-      - "./:/var/www/html"
+      - "./yii-test-app-src:/var/www/html"
       - "./:/yii2-beter-logging"
     extra_hosts:
       - "host.docker.internal:host-gateway"
@@ -17,8 +17,9 @@ services:
     container_name: "yii2-beter-logging-nginx"
     image: "nginx:1.21.6-alpine"
     ports:
-      - "${HOST_NGINX_PORT:?Port value must be specified}:80"
+      - "${HOST_NGINX_PORT:-8080}:80"
     volumes:
+      - "./yii-test-app-src:/var/www/html"
       - "./deploy/data/nginx/root/etc/nginx/nginx.conf:/etc/nginx/nginx.conf"
       - "./deploy/data/nginx/root/etc/nginx/conf.d:/etc/nginx/conf.d"
     depends_on:

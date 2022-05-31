@@ -7,6 +7,7 @@
 - Redundant new line before `log.trace` output in the `console` formatter.
 - Improvement in readability of th `console` formatter output.
 - `ProxyLogTarget` supports delayed errors with a context.
+- Docker and docker-compose for development and testing purposes.
 
 ### 1.0.0
 

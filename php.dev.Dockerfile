@@ -26,3 +26,5 @@ RUN set -eux; \
 
 COPY ./deploy/data/php/root/ /
 
+RUN set -eux; \
+    composer update
