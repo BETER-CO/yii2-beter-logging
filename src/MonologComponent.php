@@ -120,10 +120,6 @@ class MonologComponent extends Component
      */
     public function processHandlerErrorDuringHandleMethodCall($handler, \Throwable $throwable, ?array $record = null) {
         Yii::error($throwable, __METHOD__);
-
-        if (YII_DEBUG) {
-            throw $throwable;
-        }
     }
 
     /**
@@ -136,10 +132,6 @@ class MonologComponent extends Component
      */
     public function processMonologAddRecordError(\Throwable $throwable, ?array $record = null) {
         Yii::error($throwable, __METHOD__);
-
-        if (YII_DEBUG) {
-            throw $throwable;
-        }
     }
 
     /**
