@@ -8,6 +8,7 @@ use yii\log\Logger as YiiLogger;
 use Monolog\Logger as MonologLogger;
 use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
 use Beter\Yii2BeterLogging\Exception\UnknownLogLevelException;
+use Beter\Yii2BeterLogging\Exception\UnsupportedMessageStructureException;
 
 
 class ProxyLogTarget extends Target
@@ -51,22 +52,27 @@ class ProxyLogTarget extends Target
 
     /**
      * Method mimics to yii\log\Logger::log behaviour of storing log entries.
+     *
      * You must use this method only during Yii component init phase. After initialization
      * just use Yii::info(), Yii:error() and so on.
+     *
+     * An extra feature of this method is support of context of the original error.
      *
      * @param \Throwable $throwable
      * @param $level
      * @param $logCategory
+     * @param array $context
      * @return void
      */
-    protected function addDelayedError(\Throwable $throwable, $level, $logCategory) {
+    protected function addDelayedError(\Throwable $throwable, $level, $logCategory, array $context = []) {
         $this->_delayedMessages[] = [
             $throwable,
             $level,
             $logCategory,
             microtime(true),
             [],
-            memory_get_usage()
+            memory_get_usage(),
+            $context
         ];
     }
 
@@ -243,11 +249,29 @@ class ProxyLogTarget extends Target
         foreach ($this->messages as $messageArray) {
             $context = [];
             $level = $this->convertToPsr3Level($messageArray[1]);
-            $message = $messageArray[0];
 
-            if ($message instanceof \Throwable) {
-                $context['exception'] = $message;
-                $message = $message->getMessage();
+            if (is_string($messageArray[0])) {
+                $message = $messageArray[0];
+            } elseif ($messageArray[0] instanceof \Throwable) {
+                $context['exception'] = $messageArray[0];
+                $message = $messageArray[0]->getMessage();
+            } elseif (is_array($messageArray[0])) {
+                $message = json_encode($messageArray[0]);
+            } else {
+                // unsupported structure
+                $this->addDelayedError(
+                    new UnsupportedMessageStructureException(
+                        'Here was an attempt to log unsupported message type ' . gettype($messageArray[0]) .
+                        '. Allowed types are \Throwable objects, strings and arrays. Check "context" for more details.'
+                    ),
+                    YiiLogger::LEVEL_WARNING,
+                    __METHOD__,
+                    [
+                        'log.unsupportedMessage' => $messageArray[0],
+                    ]
+                );
+
+                continue;
             }
 
             $context['log.category'] = $messageArray[2];
@@ -257,6 +281,10 @@ class ProxyLogTarget extends Target
             $context['mem.usage'] = $messageArray[5];
             if (!empty($messageArray[4])) {
                 $context['log.trace'] = $messageArray[4];
+            }
+
+            if (isset($messageArray[6]) && !empty($messageArray[6])) {
+                $context = array_merge($messageArray[6], $context);
             }
 
             $this->_logger->log($level, $message, $context);
