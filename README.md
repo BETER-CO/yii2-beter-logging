@@ -199,6 +199,7 @@ Yii::info('Info here', __METHOD__); // if you call from method
 ## Further reading
 
 * [Development and testing](doc/development-and-testing.md)
+* [Logging in CLI](doc/logging-in-cli.md)
 
 TBD:
 - Handlers, Formatters and Processors
