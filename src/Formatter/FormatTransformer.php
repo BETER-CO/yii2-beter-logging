@@ -32,8 +32,6 @@ class FormatTransformer
         }
 
         if (!empty($record['context'])) {
-            $result['context'] = [];
-
             static::copyByKeys(static::CONTEXT_DEFAULT_KEYS_TO_MOVE, $record['context'], $fields, true);
 
             if (isset($record['context']['log.trueTime'])) {
