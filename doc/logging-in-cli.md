@@ -2,9 +2,9 @@
 
 ## The case
 
-Many modern applications ship web services, crons and workers.
+Many modern applications ship web services, cronjobs and workers.
 
-Each of them requires it's own logging pipeline and can't be used with default settings. Imagine you need to have
+Each of them requires its own logging pipeline and can't be used with default settings. Imagine you need to have
 
 * script for manual launch, like database migration script;
 * script to make some cleaning (cronjob script)
@@ -25,7 +25,7 @@ But `yii2-beter-logging` makes your life easier and solve described issues.
 To implement `yii2-beter-logging` approach just use `Beter\Yii2BeterLogging\EnvVarSettings` class. This class contains
 a set of helpers that checks variables in the `$_SERVER` and checks variables set up as an environment variables.
 
-> `$_SERVER` superglobal may contain variables passed by nginx, apache or any other webserver. As an example,
+> `$_SERVER` super globals may contain variables passed by nginx, apache or any other webserver. As an example,
 > for php-fpm they are set with `php_flag`, `php_admin_flag`, `php_value`, `php_admin_value`.
 > [Check the doc](https://www.php.net/manual/en/install.fpm.configuration.php).
 
@@ -70,7 +70,25 @@ $ LOGSTASH=1 php scrip.php // EnvVarSettings::logstashSettingEnabled('LOGSTASH')
 
 ## Screenshots
 
+Colorized stderr output
 
+![CLI colors](https://raw.githubusercontent.com/BETER-CO/yii2-beter-logging/master/doc/assets/cli_colors.jpg)
+
+`NO_COLOR=1` or `colorize == false` in the `console` formatter.
+
+![CLI NO_COLOR](https://raw.githubusercontent.com/BETER-CO/yii2-beter-logging/master/doc/assets/cli_no_color.jpg)
+
+`LOGGER_MACHINE_READABLE=1` or `logstash` formatter for the `standard_stream` handler.
+
+![CLI LOGGER_MACHINE_READABLE](https://raw.githubusercontent.com/BETER-CO/yii2-beter-logging/master/doc/assets/cli_machine_readable.jpg)
+
+Structure for the message for the logstash is parsed by the logstash successfully.
+
+![Logstash message](https://raw.githubusercontent.com/BETER-CO/yii2-beter-logging/master/doc/assets/logstash_message.jpg)
+
+Structure for the extension for the logstash parsed by the logstash successfully.
+
+![Logstash exception](https://raw.githubusercontent.com/BETER-CO/yii2-beter-logging/master/doc/assets/logstash_exception.jpg)
 
 ## Usage in config files
 
