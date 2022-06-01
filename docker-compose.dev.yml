@@ -24,3 +24,10 @@ services:
       - "./deploy/data/nginx/root/etc/nginx/conf.d:/etc/nginx/conf.d"
     depends_on:
       - "yii2-beter-logging-php"
+
+  yii2-beter-logging-logstash:
+    container_name: "yii2-beter-logging-logstash"
+    image: "logstash:7.8.1"
+    volumes:
+      - "./deploy/data/logstash/root/usr/share/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml"
+      - "./deploy/data/logstash/root/usr/share/logstash/pipeline:/usr/share/logstash/pipeline"
