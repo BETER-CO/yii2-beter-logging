@@ -53,8 +53,8 @@ class BeterLoggingController extends Controller
 
         \Yii::debug(new \Exception('Debug exception'), 'application');
         \Yii::info(new \Exception('Info exception'), 'application');
-        \Yii::warning(new \Exception('Info exception'), 'application');
-        \Yii::error(new \Exception('Info exception'), 'application');
+        \Yii::warning(new \Exception('Warning exception'), 'application');
+        \Yii::error(new \Exception('Error exception'), 'application');
 
         return ExitCode::OK;
     }
@@ -102,8 +102,8 @@ class BeterLoggingController extends Controller
 
         \Yii::debug(new \Exception('Debug exception'), 'application');
         \Yii::info(new \Exception('Info exception'), 'application');
-        \Yii::warning(new \Exception('Info exception'), 'application');
-        \Yii::error(new \Exception('Info exception'), 'application');
+        \Yii::warning(new \Exception('Warning exception'), 'application');
+        \Yii::error(new \Exception('Error exception'), 'application');
 
         return ExitCode::OK;
     }
@@ -151,8 +151,8 @@ class BeterLoggingController extends Controller
 
         \Yii::debug(new \Exception('Debug exception'), 'application');
         \Yii::info(new \Exception('Info exception'), 'application');
-        \Yii::warning(new \Exception('Info exception'), 'application');
-        \Yii::error(new \Exception('Info exception'), 'application');
+        \Yii::warning(new \Exception('Warning exception'), 'application');
+        \Yii::error(new \Exception('Error exception'), 'application');
 
         return ExitCode::OK;
     }
