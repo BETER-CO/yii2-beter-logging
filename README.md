@@ -4,6 +4,8 @@ Bulletproof logging for enterprise yii2 projects.
 
 monolog 2.x integration, custom LogTarget with delayed queue, pretty console handler, logstash via udp and tcp with deep yii2 integration.
 
+![CLI colors](https://raw.githubusercontent.com/BETER-CO/yii2-beter-logging/master/doc/assets/cli_colors.jpg)
+
 Features:
 * uses monolog under the hood;
 * implements custom [log Target](https://www.yiiframework.com/doc/api/2.0/yii-log-target) to pass log entries to monolog;
