@@ -19,7 +19,10 @@ class BeterLoggingInitializer
 
         // Get of the component forces Yii to lazyload and init component.
         \Yii::$app->get('log');
-        \Yii::$app->log->targets['debug'] = $debugLogTarget;
+
+        if ($debugLogTarget !== null) {
+            \Yii::$app->log->targets['debug'] = $debugLogTarget;
+        }
     }
 
     static function initTargetLog($targetLogComponentDefinition)
@@ -70,15 +73,15 @@ class BeterLoggingInitializer
         return $definition;
     }
 
-    static function createLogstashHandler($level = 'debug', $bubble = true)
+    static function createLogstashHandler($level = 'debug', $bubble = true, $host = '127.0.0.1', $port = 5555)
     {
         $handlerConfig = [
             'name' => 'logstash',
             'label' => 'logstash',
             'level' => $level,
             'bubble' => $bubble,
-            'host' => '1.2.3.4', // or host.address.com
-            'port' => 5045,
+            'host' => $host, // or host.address.com
+            'port' => $port,
             'socket_transport' => 'tcp',
             'persistent' => false,
             'socket_timeout' => 1,
