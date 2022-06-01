@@ -116,15 +116,16 @@ class ConsoleFormatter extends LineFormatter
         }
 
         $output .= " " . $this->colorize($vars['message'], $levelColor);
-        $output .= "\n";
 
         if (isset($vars['fields']['log.category']) && !empty($vars['fields']['log.category'])) {
             $output .= sprintf(
-                "\n%s[category] %s\n",
+                "\n%s[category] %s",
                 $this->addIndent(),
                 $this->colorize($this->stringify($vars['fields']['log.category']), $levelColor)
             );
         }
+
+        $output .= "\n";
 
         if (isset($vars['fields']['extra'])) {
             $output .= sprintf(
