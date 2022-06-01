@@ -1,6 +1,6 @@
 # Changelog
 
-### main branch
+### 1.1.0
 
 - MonologComponent must not throw Exceptions if YII_DEBUG is enabled
 [[#1](https://github.com/BETER-CO/yii2-beter-logging/issues/1)].
