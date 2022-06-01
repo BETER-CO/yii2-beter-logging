@@ -170,7 +170,7 @@ class BeterLoggingController extends Controller
     {
         $logComponentDefinition = BeterLoggingInitializer::getLogComponentDefinition();
 
-        $standardStreamHandler = BeterLoggingInitializer::createProductionStandardStreamHandler('debug', true, false, 0);
+        $standardStreamHandler = BeterLoggingInitializer::createProductionStandardStreamHandler('debug', true);
         $handlers = [$standardStreamHandler];
 
         $basicProcessor = BeterLoggingInitializer::createBasicProcessor();

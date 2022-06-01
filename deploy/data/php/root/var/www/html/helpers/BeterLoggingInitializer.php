@@ -112,7 +112,7 @@ class BeterLoggingInitializer
         return $handlerConfig;
     }
 
-    static function createProductionStandardStreamHandler($level = 'debug', $bubble = true, $colorize = true, $indentSize = 2)
+    static function createProductionStandardStreamHandler($level = 'debug', $bubble = true)
     {
         $handlerConfig = [
             'name' => 'standard_stream',
