@@ -144,6 +144,18 @@ class BeterLoggingInitializer
         return $processorConfig;
     }
 
+    static function createCorrelationIdProcessor()
+    {
+        $processorConfig = [
+            'name' => 'correlation_id_processor',
+            'length' => 32,
+            'search_in_headers' => true,
+            'header_name' => 'X-Request-Id',
+        ];
+
+        return $processorConfig;
+    }
+
     static function createMonologComponentDefinition($handlers = [], $processors = [])
     {
         $definition = [

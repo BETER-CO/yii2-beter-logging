@@ -99,6 +99,15 @@ $this->title = 'My Yii Application';
                     Expected result: One info message handled by standard handler, plus a few messages with info about failure.</p>
                 <p><a class="btn btn-outline-secondary" href="<?php echo \yii\helpers\Url::to(['beter-logging/bubbling4']) ?>">Test it</a></p>
             </div>
+            <div class="col-lg-12">
+                <h2>CorrelationId processor</h2>
+
+                <p>Adds correlationId field for the web application.<br />
+                    Uses header value 'X-Request-Id' if present by default, otherwise generates random hex string.
+                    For CLI only generates random hex string<br />
+                    Expected result: All log entries must have the same correlationId field</p>
+                <p><a class="btn btn-outline-secondary" href="<?php echo \yii\helpers\Url::to(['beter-logging/correlation-id']) ?>">Test it</a></p>
+            </div>
         </div>
 
     </div>

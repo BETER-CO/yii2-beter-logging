@@ -67,7 +67,7 @@ class BeterLoggingController extends Controller
                     'Target log component definition' => $targetLogComponentDefinition,
                     'Initial log component definition' => $logComponentDefinition,
                     'Reinitialized log component definition' => $newLogComponentDefinition,
-                 ]
+                ]
             ]
         );
     }
@@ -359,6 +359,54 @@ class BeterLoggingController extends Controller
         BeterLoggingInitializer::initLog($newLogComponentDefinition);
 
         \Yii::info('Info message', 'application');
+
+        return $this->render(
+            'log_target',
+            [
+                'actionName' => __METHOD__,
+                'data' => [
+                    'YII_DEBUG' => YII_DEBUG,
+                    'Target log component definition' => $targetLogComponentDefinition,
+                    'Initial log component definition' => $logComponentDefinition,
+                    'Reinitialized log component definition' => $newLogComponentDefinition,
+                ]
+            ]
+        );
+    }
+
+    public function actionCorrelationId()
+    {
+        $logComponentDefinition = BeterLoggingInitializer::getLogComponentDefinition();
+
+        $standardStreamHandler = BeterLoggingInitializer::createStandardStreamHandler('debug', true, true, 4);
+        $handlers = [$standardStreamHandler];
+
+        $basicProcessor = BeterLoggingInitializer::createBasicProcessor();
+        $correlationIdProcessor = BeterLoggingInitializer::createCorrelationIdProcessor();
+        $processors = [$basicProcessor, $correlationIdProcessor];
+
+        $targetLogComponentDefinition = BeterLoggingInitializer::createMonologComponentDefinition($handlers, $processors);
+        BeterLoggingInitializer::initTargetLog($targetLogComponentDefinition);
+
+        $traceLevel = 3;
+        $categories = ['application'];
+        $except = [];
+        $levels = ['error', 'warning', 'info', 'trace'];
+        $newLogComponentDefinition = BeterLoggingInitializer::createLogComponentDefinition(
+            $traceLevel, $categories, $except, $levels
+        );
+
+        BeterLoggingInitializer::initLog($newLogComponentDefinition);
+
+        \Yii::debug('Debug message', 'application');
+        \Yii::info('Info message', 'application');
+        \Yii::warning('Warning message', 'application');
+        \Yii::error('Error message', 'application');
+
+        \Yii::debug(new \Exception('Debug exception'), 'application');
+        \Yii::info(new \Exception('Info exception'), 'application');
+        \Yii::warning(new \Exception('Info exception'), 'application');
+        \Yii::error(new \Exception('Info exception'), 'application');
 
         return $this->render(
             'log_target',

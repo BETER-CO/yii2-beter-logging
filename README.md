@@ -156,7 +156,13 @@ the component and monolog channel name* as was specified in `targetLogComponent`
                     'app' => 'myapp',
                     'service' => 'api',
                     'host' => gethostname(), // or set it as you want
-                ]
+                ],
+                [
+                    'name' => 'correlation_id_processor',
+                    'length' => 32,
+                    'search_in_headers' => true, // true if not set explicitly
+                    'header_name' => 'X-Request-Id', // 'X-Request-Id' if not set explicitly
+                ],
             ],
         ],
     ],

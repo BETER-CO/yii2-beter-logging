@@ -15,6 +15,7 @@ use Monolog\Processor\ProcessorInterface;
 use Beter\Yii2BeterLogging\Handler\LogstashHandler;
 use Beter\Yii2BeterLogging\Handler\HandlerWithStatsInterface;
 use Beter\Yii2BeterLogging\Processor\BasicProcessor;
+use Beter\Yii2BeterLogging\Processor\CorrelationIdProcessor;
 use Beter\Yii2BeterLogging\Formatter\LogstashFormatter;
 use Beter\Yii2BeterLogging\Formatter\ConsoleFormatter;
 use Beter\Yii2BeterLogging\Exception\LoggerNotFoundException;
@@ -194,6 +195,26 @@ class MonologComponent extends Component
                 }
 
                 return new BasicProcessor($config['env'], $config['app'], $config['service'], $config['host']);
+            case 'correlation_id_processor':
+                if (isset($config['length']) && !is_int($config['length'])) {
+                    throw new InvalidConfigException("Processor '$name' setting 'length' must be an int");
+                }
+
+                $length = $config['length'] ?? 32;
+
+                if (isset($config['search_in_headers']) && !is_bool($config['search_in_headers'])) {
+                    throw new InvalidConfigException("Processor '$name' setting 'search_in_headers' must be a bool");
+                }
+
+                $searchInHeaders = $config['search_in_headers'] ?? true;
+
+                if (isset($config['header_name']) && !is_string($config['header_name'])) {
+                    throw new InvalidConfigException("Processor '$name' setting 'header_name' must be a string");
+                }
+
+                $headerName = $config['header_name'] ?? 'X-Request-Id';
+
+                return new CorrelationIdProcessor($length, $searchInHeaders, $headerName);
             default:
                 throw new InvalidConfigException("Unsupported processor name $name");
         }
