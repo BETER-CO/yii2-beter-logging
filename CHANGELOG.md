@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.1.1
+
+- Support of the correlationId (via processor). Generates hex string for CLI, tries to use `X-Reuqest-Id` header
+if set and then switches to random generated value.
+
 ### 1.1.0
 
 - MonologComponent must not throw Exceptions if YII_DEBUG is enabled
