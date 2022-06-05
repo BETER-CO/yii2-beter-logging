@@ -108,6 +108,13 @@ $this->title = 'My Yii Application';
                     Expected result: All log entries must have the same correlationId field</p>
                 <p><a class="btn btn-outline-secondary" href="<?php echo \yii\helpers\Url::to(['beter-logging/correlation-id']) ?>">Test it</a></p>
             </div>
+            <div class="col-lg-12">
+                <h2>Logging with context</h2>
+
+                <p>Redefine BaseYii class and receive context feature for log records. Check stderr and logstash.<br />
+                    Expected result: Only specific log entries must have context.</p>
+                <p><a class="btn btn-outline-secondary" href="<?php echo \yii\helpers\Url::to(['beter-logging/context']) ?>">Test it</a></p>
+            </div>
         </div>
 
     </div>

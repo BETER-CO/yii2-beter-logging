@@ -421,4 +421,66 @@ class BeterLoggingController extends Controller
             ]
         );
     }
+
+    public function actionContext()
+    {
+        $logComponentDefinition = BeterLoggingInitializer::getLogComponentDefinition();
+
+        $logstashHandler = BeterLoggingInitializer::createLogstashHandler('debug', true, 'yii2-beter-logging-logstash', 5044);
+        $standardStreamHandler = BeterLoggingInitializer::createStandardStreamHandler('debug', true);
+        $handlers = [$logstashHandler, $standardStreamHandler];
+
+        $basicProcessor = BeterLoggingInitializer::createBasicProcessor();
+        $processors = [$basicProcessor];
+
+        $targetLogComponentDefinition = BeterLoggingInitializer::createMonologComponentDefinition($handlers, $processors);
+        BeterLoggingInitializer::initTargetLog($targetLogComponentDefinition);
+
+        $traceLevel = 3;
+        $categories = [];
+        $except = [];
+        $levels = ['error', 'warning', 'info', 'trace'];
+        $newLogComponentDefinition = BeterLoggingInitializer::createLogComponentDefinition(
+            $traceLevel, $categories, $except, $levels
+        );
+
+        BeterLoggingInitializer::initLog($newLogComponentDefinition);
+
+        $context = [
+            'field1' => 'value1',
+            'field2' => [
+                'value21',
+                true,
+                false
+            ],
+            'field3' => [
+                'field4' => [
+                    1, 2.0, new \stdClass(), new \Exception('lol')
+                ]
+            ]
+        ];
+
+        \Yii::debug('Debug message', 'application', $context);
+        \Yii::info('Info message', 'application', $context);
+        \Yii::warning('Warning message', 'application', $context);
+        \Yii::error('Error message', 'application', $context);
+
+        \Yii::debug(new \Exception('Debug exception'), 'application', $context);
+        \Yii::info(new \Exception('Info exception'), 'application', $context);
+        \Yii::warning(new \Exception('Warning exception'), 'application', $context);
+        \Yii::error(new \Exception('Error exception'), 'application', $context);
+
+        return $this->render(
+            'log_target',
+            [
+                'actionName' => __METHOD__,
+                'data' => [
+                    'YII_DEBUG' => YII_DEBUG,
+                    'Target log component definition' => $targetLogComponentDefinition,
+                    'Initial log component definition' => $logComponentDefinition,
+                    'Reinitialized log component definition' => $newLogComponentDefinition,
+                ]
+            ]
+        );
+    }
 }

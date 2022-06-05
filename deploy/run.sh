@@ -18,6 +18,7 @@ function help() {
   echo -e "  ${SC}help              ${CC}- Show all information about available commands."
   echo -e "  ${SC}reload.nginx      ${CC}- Send reload signal to nginx"
   echo -e "  ${SC}reload.php-fpm    ${CC}- Send reload signal to php-fpm"
+  echo -e "  ${SC}lastmodified      ${CC}- Show last modified php files"
 }
 
 up() {
@@ -30,6 +31,10 @@ reload.nginx() {
 
 reload.php-fpm() {
   docker-compose -f ${DOCKER_COMPOSE_FILE} exec ${PHP_SERVICE_NAME} sh -c 'kill -USR2 `cat /usr/local/var/run/php-fpm.pid`'
+}
+
+lastmodified() {
+  docker-compose -f ${DOCKER_COMPOSE_FILE} exec ${PHP_SERVICE_NAME} sh -c "find /var/www/html -not -path '*/runtime/*' -not -path '*/web/assets/*' -not -path '*/vendor/*' -exec stat -c '%Y %n' '{}' + | sort -n"
 }
 
 if [ "$(type -t $1)" = "function" ]; then

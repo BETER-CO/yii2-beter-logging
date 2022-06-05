@@ -6,6 +6,7 @@ use Yii;
 use yii\log\Target;
 use yii\log\Logger as YiiLogger;
 use Monolog\Logger as MonologLogger;
+use Beter\Yii2BeterLogging\ExceptionWithContextInterface;
 use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
 use Beter\Yii2BeterLogging\Exception\UnknownLogLevelException;
 use Beter\Yii2BeterLogging\Exception\UnsupportedMessageStructureException;
@@ -35,6 +36,22 @@ class ProxyLogTarget extends Target
      * @var array
      */
     public $exportInterval = 1;
+
+    /**
+     * Exception may have nested exceptions and each nested exception may have its own context, so to prevent
+     * log record burdening with contexts we may limit max amount of context entries to log.
+     *
+     * @var int
+     */
+    public int $exceptionContextEntriesLimit = 3;
+
+    /**
+     * Exception may have nested exceptions. This setting limits the depth of analysis to prevent infinite loops or
+     * reduce resources consumption.
+     *
+     * @var int
+     */
+    public int $exceptionContextMaxDepthToAnalyze = 5;
 
     protected static $_yiiToPsr3LogLevelMapping = [
         YiiLogger::LEVEL_ERROR => MonologLogger::ERROR,
@@ -255,6 +272,11 @@ class ProxyLogTarget extends Target
             } elseif ($messageArray[0] instanceof \Throwable) {
                 $context['exception'] = $messageArray[0];
                 $message = $messageArray[0]->getMessage();
+
+                $contextFromException = $this->getContextFromException($messageArray[0]);
+                if (!empty($contextFromException)) {
+                    $context['exceptionContext'] = $contextFromException;
+                }
             } elseif (is_array($messageArray[0])) {
                 $message = json_encode($messageArray[0]);
             } else {
@@ -283,8 +305,10 @@ class ProxyLogTarget extends Target
                 $context['log.trace'] = $messageArray[4];
             }
 
+            // there is no such array elements in the original Yii implementation, but this module extends
+            // Yii logging mechanics and here you may find context passed to Yii::info('message', __METHOD__, $context)
             if (isset($messageArray[6]) && !empty($messageArray[6])) {
-                $context = array_merge($messageArray[6], $context);
+                $context = array_merge($context, $messageArray[6]);
             }
 
             $this->_logger->log($level, $message, $context);
@@ -321,5 +345,40 @@ class ProxyLogTarget extends Target
      */
     public function getMessagePrefix($message) {
         return '';
+    }
+
+    /**
+     * @param \Throwable $throwable
+     * @return array
+     */
+    protected function getContextFromException(\Throwable $throwable): array
+    {
+        $currentException = $throwable;
+        $context = [];
+        $i = 1;
+
+        while (true) {
+            if ($currentException instanceof ExceptionWithContextInterface) {
+                $context["exception${i}"] = $currentException->getContext();
+
+                if (count($context) >= $this->exceptionContextEntriesLimit) {
+                    break;
+                }
+            }
+
+            $i++;
+
+            if ($currentException->getPrevious()) {
+                $currentException = $currentException->getPrevious();
+            } else {
+                break;
+            }
+
+            if ($i > $this->exceptionContextMaxDepthToAnalyze) {
+                break;
+            }
+        }
+
+        return $context;
     }
 }

@@ -85,6 +85,11 @@ is the first handler and logstash handler successfully writes data to logstash. 
 * `./yii beter-logging/bubbling-off-with-inactive-logstash` to taste case when bubbling is off for handlers, logstash
 * is the first handler and logstasg is down, so handler can't write data to logstash. Expected: logs in stderr and
 log entries about logstash delivery failures.
+* `./yii beter-logging/messages-with-context` illustrates passing context to the logger right from the application
+(requires extending of the YiiBase class, check sources).
+* `./yii beter-logging/exceptions-with-context` illustrates passing context to the exceptions. logger then handles
+context from exceptions.
+* `./yii beter-logging/exceptions-with-traits` demonstrates how to use traits to extend yii errors with a context.
 
 ## Tips
 

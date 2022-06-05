@@ -8,6 +8,7 @@ use Beter\Yii2BeterLogging\MonologComponent;
 
 class BeterLoggingInitializer
 {
+    const TARGET_NAME = 'monolog-proxy';
     const TARGET_LOG_COMPONENT = 'monolog';
     const TARGET_LOG_CHANNEL = 'main';
 
@@ -56,12 +57,13 @@ class BeterLoggingInitializer
             'traceLevel' => $traceLevel,
             'flushInterval' => 1,
             'targets' => [
-                'monolog-proxy' => [
+                self::TARGET_NAME => [
                     'class' => ProxyLogTarget::class,
                     'targetLogComponent' => [
                         'componentName' => self::TARGET_LOG_COMPONENT,
                         'logChannel' => self::TARGET_LOG_CHANNEL
                     ],
+                    'exceptionContextEntriesLimit' => 3,
                     'exportInterval' => 1,
                     'categories' => $categories,
                     'except' => $except,
@@ -149,7 +151,7 @@ class BeterLoggingInitializer
         $processorConfig = [
             'name' => 'correlation_id_processor',
             'length' => 32,
-            'search_in_headers' => true,
+            'search_in_headers' => false,
             'header_name' => 'X-Request-Id',
         ];
 
