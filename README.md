@@ -11,6 +11,7 @@ Features:
 * implements custom [log Target](https://www.yiiframework.com/doc/api/2.0/yii-log-target) to pass log entries to monolog;
 * allows handlers chaining if logstash handler fails, so no more loses of log entries;
 * allows tracking statistics of log handlers;
+* adds [log context](doc/logging-with-context.md) for messages and exceptions;
 * doesn't turn off the whole log Target on errors;
 * allows switching off handlers if they fail specific amount of times;
 * supports stdout/stderr with colors;
