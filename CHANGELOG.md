@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.2.0
+
+- Support of contexts for exceptions and messages.
+
 ### 1.1.1
 
 - Support of the correlationId (via processor). Generates hex string for CLI, tries to use `X-Reuqest-Id` header

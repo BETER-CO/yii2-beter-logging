@@ -208,6 +208,7 @@ Yii::info('Info here', __METHOD__); // if you call from method
 
 * [Development and testing](doc/development-and-testing.md)
 * [Logging in CLI](doc/logging-in-cli.md)
+* [Logging with a context](doc/logging-with-context.md)
 
 TBD:
 - Handlers, Formatters and Processors
