@@ -2,7 +2,7 @@
 
 namespace Beter\Yii2BeterLogging\Handler;
 
-class Stats implements ProcessHandleStatsInterface {
+class Stats implements HandlerStatsInterface {
 
     protected int $amountOfFailedHandleCalls = 0;
     protected int $amountOfSuccessfulHandleCalls = 0;

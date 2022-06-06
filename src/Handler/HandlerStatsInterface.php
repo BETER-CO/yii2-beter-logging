@@ -2,7 +2,7 @@
 
 namespace Beter\Yii2BeterLogging\Handler;
 
-interface ProcessHandleStatsInterface {
+interface HandlerStatsInterface {
     public function getAmountOfFailedHandleCalls(): int;
     public function getAmountOfSuccessfulHandleCalls(): int;
 }
