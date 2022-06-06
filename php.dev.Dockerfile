@@ -27,7 +27,7 @@ RUN set -eux; \
 COPY ./deploy/data/php/root/ /
 
 RUN set -eux; \
-    export YII2_BETER_LOGGING_VERSION="1.2.0"; \
+    export YII2_BETER_LOGGING_VERSION="1.2.1"; \
     export \
       YII2_BETER_LOGGING_URL="https://github.com/BETER-CO/yii2-beter-logging/archive/refs/tags/${YII2_BETER_LOGGING_VERSION}.tar.gz" \
       YII2_BETER_LOGGING_ARCH_DIR="yii2-beter-logging-${YII2_BETER_LOGGING_VERSION}" \

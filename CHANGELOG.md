@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.2.1
+
+- Support of exec time tracking was added to the Stats class.
+- standard_stream handler supports Stats now.
+- ProcessHandlerStatsInterface was renamed to HandlerStatsInterface.
+
 ### 1.2.0
 
 - Support of contexts for exceptions and messages.
