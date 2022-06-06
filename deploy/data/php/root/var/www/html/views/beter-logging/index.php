@@ -115,6 +115,12 @@ $this->title = 'My Yii Application';
                     Expected result: Only specific log entries must have context.</p>
                 <p><a class="btn btn-outline-secondary" href="<?php echo \yii\helpers\Url::to(['beter-logging/context']) ?>">Test it</a></p>
             </div>
+            <div class="col-lg-12">
+                <h2>Stats for log handlers</h2>
+
+                <p>Shows stats, logstash and standard_stream handler.<br />
+                <p><a class="btn btn-outline-secondary" href="<?php echo \yii\helpers\Url::to(['beter-logging/handler-stats']) ?>">Test it</a></p>
+            </div>
         </div>
 
     </div>

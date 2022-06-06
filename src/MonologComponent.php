@@ -7,12 +7,12 @@ use Beter\Yii2BeterLogging\Handler\HandlerWithHandleErrorProcessingInterface;
 use Yii;
 use Monolog\Logger;
 use Monolog\Handler\HandlerInterface;
-use Monolog\Handler\StreamHandler;
 use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\WildfireFormatter;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Processor\ProcessorInterface;
 use Beter\Yii2BeterLogging\Handler\LogstashHandler;
+use Beter\Yii2BeterLogging\Handler\StandardStreamHandler;
 use Beter\Yii2BeterLogging\Handler\HandlerWithStatsInterface;
 use Beter\Yii2BeterLogging\Processor\BasicProcessor;
 use Beter\Yii2BeterLogging\Processor\CorrelationIdProcessor;
@@ -306,13 +306,7 @@ class MonologComponent extends Component
                     throw new InvalidConfigException("Handler '$name' must have 'stream' setting");
                 }
 
-                if ($config['stream'] !== 'php://stdout' && $config['stream'] !== 'php://stderr') {
-                    throw new InvalidConfigException(
-                        "Config name '$name' setting 'stream' has incorrect value"
-                    );
-                }
-
-                return new StreamHandler($config['stream'], $config['level'], $config['bubble']);
+                return new StandardStreamHandler($config['stream'], $config['level'], $config['bubble']);
             case 'firephp':
                 return new FirePHPHandler($config['level'], $config['bubble']);
             default:

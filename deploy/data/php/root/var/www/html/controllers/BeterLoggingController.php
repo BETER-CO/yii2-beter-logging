@@ -465,10 +465,26 @@ class BeterLoggingController extends Controller
         \Yii::warning('Warning message', 'application', $context);
         \Yii::error('Error message', 'application', $context);
 
-        \Yii::debug(new \Exception('Debug exception'), 'application', $context);
-        \Yii::info(new \Exception('Info exception'), 'application', $context);
-        \Yii::warning(new \Exception('Warning exception'), 'application', $context);
-        \Yii::error(new \Exception('Error exception'), 'application', $context);
+        \Yii::debug(
+            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Debug exception'))->setContext(['k1' => 'v1']),
+            'application',
+            $context
+        );
+        \Yii::info(
+            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Info exception'))->setContext(['k2' => 'v2']),
+            'application',
+            $context
+        );
+        \Yii::warning(
+            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Warning exception'))->setContext(['k3' => 'v3']),
+            'application',
+            $context
+        );
+        \Yii::error(
+            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Error exception'))->setContext(['k4' => 'v4']),
+            'application',
+            $context
+        );
 
         return $this->render(
             'log_target',
@@ -476,6 +492,53 @@ class BeterLoggingController extends Controller
                 'actionName' => __METHOD__,
                 'data' => [
                     'YII_DEBUG' => YII_DEBUG,
+                    'Target log component definition' => $targetLogComponentDefinition,
+                    'Initial log component definition' => $logComponentDefinition,
+                    'Reinitialized log component definition' => $newLogComponentDefinition,
+                ]
+            ]
+        );
+    }
+
+    public function actionHandlerStats()
+    {
+        $logComponentDefinition = BeterLoggingInitializer::getLogComponentDefinition();
+
+        $logstashHandler = BeterLoggingInitializer::createLogstashHandler('debug', true, 'yii2-beter-logging-logstash', 5555);
+        $standardStreamHandler = BeterLoggingInitializer::createStandardStreamHandler('debug', true);
+        $handlers = [$logstashHandler, $standardStreamHandler];
+
+        $basicProcessor = BeterLoggingInitializer::createBasicProcessor();
+        $processors = [$basicProcessor];
+
+        $targetLogComponentDefinition = BeterLoggingInitializer::createMonologComponentDefinition($handlers, $processors);
+        BeterLoggingInitializer::initTargetLog($targetLogComponentDefinition);
+
+        $traceLevel = 0;
+        $categories = [];
+        $except = [];
+        $levels = ['error', 'warning', 'info', 'trace'];
+        $newLogComponentDefinition = BeterLoggingInitializer::createLogComponentDefinition(
+            $traceLevel, $categories, $except, $levels
+        );
+
+        BeterLoggingInitializer::initLog($newLogComponentDefinition);
+
+        \Yii::debug('Debug message', 'application');
+        \Yii::info('Info message', 'application');
+        \Yii::warning('Warning message', 'application');
+        \Yii::error('Error message', 'application');
+
+        /** @var \Beter\Yii2BeterLogging\MonologComponent $monologComponent */
+        $monologComponent = \Yii::$app->get(BeterLoggingInitializer::TARGET_LOG_COMPONENT);
+
+        return $this->render(
+            'log_target',
+            [
+                'actionName' => __METHOD__,
+                'data' => [
+                    'YII_DEBUG' => YII_DEBUG,
+                    'stats' => $monologComponent->getStats(),
                     'Target log component definition' => $targetLogComponentDefinition,
                     'Initial log component definition' => $logComponentDefinition,
                     'Reinitialized log component definition' => $newLogComponentDefinition,
