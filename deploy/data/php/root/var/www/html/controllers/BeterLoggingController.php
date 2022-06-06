@@ -531,6 +531,25 @@ class BeterLoggingController extends Controller
 
         /** @var \Beter\Yii2BeterLogging\MonologComponent $monologComponent */
         $monologComponent = \Yii::$app->get(BeterLoggingInitializer::TARGET_LOG_COMPONENT);
+        $stats = [];
+
+        foreach ($monologComponent->getStats() as $logChannelName => $channelHandlers) {
+            $stats[$logChannelName] = [];
+            /** @var \Beter\Yii2BeterLogging\Handler\Stats $handlerStats */
+            foreach ($channelHandlers as $handlerName => $handlerStats) {
+                $execTimes = [];
+                foreach ($handlerStats->getHandleExecTimes() as $value) {
+                    $execTimes[] = $value;
+                }
+
+                $stats[$logChannelName][$handlerName] = [
+                    'amountOfFailedHandleCalls' => $handlerStats->getAmountOfFailedHandleCalls(),
+                    'amountOfSuccessfulHandleCalls' => $handlerStats->getAmountOfSuccessfulHandleCalls(),
+                    'amountOfDequeuedExecTimes' => $handlerStats->getAmountOfDequeuedExecTimes(),
+                    'execTimes' => $execTimes,
+                ];
+            }
+        }
 
         return $this->render(
             'log_target',
@@ -538,7 +557,7 @@ class BeterLoggingController extends Controller
                 'actionName' => __METHOD__,
                 'data' => [
                     'YII_DEBUG' => YII_DEBUG,
-                    'stats' => $monologComponent->getStats(),
+                    'stats' => $stats,
                     'Target log component definition' => $targetLogComponentDefinition,
                     'Initial log component definition' => $logComponentDefinition,
                     'Reinitialized log component definition' => $newLogComponentDefinition,

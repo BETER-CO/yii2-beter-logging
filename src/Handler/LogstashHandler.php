@@ -2,7 +2,6 @@
 
 namespace Beter\Yii2BeterLogging\Handler;
 
-use Monolog\Logger;
 use Monolog\Handler\SocketHandler;
 
 class LogstashHandler
@@ -60,6 +59,6 @@ class LogstashHandler
             $chunkSize
         );
 
-        $this->stats = new Stats();
+        $this->stats = new Stats($this->execTimeQueueMaxSize);
     }
 }

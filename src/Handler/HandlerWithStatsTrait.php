@@ -5,6 +5,14 @@ namespace Beter\Yii2BeterLogging\Handler;
 trait HandlerWithStatsTrait
 {
     /**
+     * Every Stats object has a queue that stores execution times for the handle method. The queue may consume a lot
+     * of memory, so we need to limit queue size.
+     *
+     * @var int
+     */
+    protected int $execTimeQueueMaxSize = 1000;
+
+    /**
      * The main purpose if this method is to prevent incorrect stats if few handlers have the same label
      *
      * @var bool
@@ -35,6 +43,23 @@ trait HandlerWithStatsTrait
     {
         $this->statsDisableStatus = true;
 
+        return $this;
+    }
+
+    public function initStats(): self
+    {
+        $this->stats = new Stats($this->execTimeQueueMaxSize);
+
+        return $this;
+    }
+
+    public function setExecTimeQueueMaxSize(int $execTimeQueueMaxSize): self
+    {
+        if ($execTimeQueueMaxSize <= 1) {
+            throw new \InvalidArgumentException('execTimeQueueMaxSize can not be less than 1');
+        }
+
+        $this->execTimeQueueMaxSize = $execTimeQueueMaxSize;
         return $this;
     }
 

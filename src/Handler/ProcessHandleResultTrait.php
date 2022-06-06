@@ -26,22 +26,26 @@ trait ProcessHandleResultTrait {
             return false;
         }
 
+        $startTime = microtime(true);
+
         try {
             $handleResult = parent::handle($record);
 
             if ($this instanceof HandlerWithStatsInterface) {
                 $this->stats->incSuccessfulHandleCalls();
+                $this->stats->addHandleExecTime(microtime(true) - $startTime);
             }
 
             return $handleResult;
         } catch (\Throwable $throwable) {
             $e = new HandleException('Failed to handle log record by ' . __CLASS__ . ' handler', 0, $throwable);
 
-            $this->trackHandleErrorForDisabling();
-
             if ($this instanceof HandlerWithStatsInterface) {
                 $this->stats->incFailedHandleCalls();
+                $this->stats->addHandleExecTime(microtime(true) - $startTime);
             }
+
+            $this->trackHandleErrorForDisabling();
 
             if ($this->handleExceptionHandler) {
                 ($this->handleExceptionHandler)($this, $e, $record);

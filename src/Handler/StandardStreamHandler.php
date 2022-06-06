@@ -32,6 +32,6 @@ class StandardStreamHandler
 
         parent::__construct($stream, $level, $bubble);
 
-        $this->stats = new Stats();
+        $this->stats = new Stats($this->execTimeQueueMaxSize);
     }
 }
