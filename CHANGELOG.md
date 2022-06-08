@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.2.2
+
+- Before this release empty values of env settings (like `NO_COLOR`) and values with any string that differ from
+`True` or `1` were interpreted as `false` (switched off). From now they will be interpreted as `null`
+(invalid setting) in such cases.
+
 ### 1.2.1
 
 - Support of exec time tracking was added to the Stats class.

@@ -64,15 +64,19 @@ class EnvVarSettings
      * Parses value.
      *
      * Returns (bool) true for
-     *   - strings "true", "TRUE", "True" and all modifications with capital letters, "1"
-     *   - bool value passed to this method
+     *   - strings "true", "TRUE", "True", "1";
+     *   - true bool value passed to this method.
      *
-     * Returns (bool) false otherwise.
+     * Returns (bool) false for
+     *   - strings "false", "FALSE", "False", "0";
+     *   - false bool value passed to this method.
+     *
+     * Returns null otherwise.
      *
      * @param mixed $value value of any type
-     * @return bool
+     * @return bool|null
      */
-    public static function parseBooleanEnvSetting($value): bool
+    public static function parseBooleanEnvSetting($value): ?bool
     {
         if (is_bool($value)) {
             return $value;
@@ -80,9 +84,15 @@ class EnvVarSettings
 
         if (is_string($value)) {
             $value = strtoupper($value);
-            return $value === '1' || $value === 'TRUE';
+            if ($value === '1' || $value === 'TRUE') {
+                return true;
+            } elseif ($value === '0' || $value === 'FALSE') {
+                return false;
+            }
+
+            return null;
         }
 
-        return false;
+        return null;
     }
 }

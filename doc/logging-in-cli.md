@@ -51,15 +51,18 @@ All other methods may be called with a parameter that specifies env name to chec
 `EnvVarSettings::logstashSettingEnabled('LOGSTASH')` will check `$_SERVER['LOGSTASH']` and will call
 `getenv('LOGSTASH')`.
 
-Every method returns `null` of no env setting was detected at all, returns `true` if env setting is on of the strings
-`True`, `true`, `True` or `1`. Methods return `false` on all other scenarios.
+Every method returns:
+* `true` if env setting is one of the strings `True`, `true`, `True` or `1`.
+* `false` if env setting is one of the strings `False`, `false`, `False` or `0`.
+* `null` for other scenarios or if no env setting was detected at all.
 
 ```bash
 $ php script.php // EnvVarSettings::colorSettingEnabled() === null
 $ NO_COLOR=1 php script.php // EnvVarSettings::colorSettingEnabled() === true
 $ NO_COLOR=True php script.php // EnvVarSettings::colorSettingEnabled() === true
 $ NO_COLOR=0 php script.php // EnvVarSettings::colorSettingEnabled() === false
-$ NO_COLOR=anythingelse php script.php // EnvVarSettings::colorSettingEnabled() === false
+$ NO_COLOR=anythingelse php script.php // EnvVarSettings::colorSettingEnabled() === null
+$ NO_COLOR= php script.php // EnvVarSettings::colorSettingEnabled() === null
 
 $ LOGGER_ENABLE_LOGSTASH=1 php scrip.php // EnvVarSettings::logstashSettingEnabled() === true
 $ LOGSTASH=1 php scrip.php // EnvVarSettings::logstashSettingEnabled() === false
