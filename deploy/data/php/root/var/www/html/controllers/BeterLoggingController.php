@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\log\Logger;
+use app\exception\ExceptionWithContext;
 use app\helpers\BeterLoggingInitializer;
 
 
@@ -466,22 +467,22 @@ class BeterLoggingController extends Controller
         \Yii::error('Error message', 'application', $context);
 
         \Yii::debug(
-            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Debug exception'))->setContext(['k1' => 'v1']),
+            (new ExceptionWithContext('Debug exception'))->setContext(['k1' => 'v1']),
             'application',
             $context
         );
         \Yii::info(
-            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Info exception'))->setContext(['k2' => 'v2']),
+            (new ExceptionWithContext('Info exception'))->setContext(['k2' => 'v2']),
             'application',
             $context
         );
         \Yii::warning(
-            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Warning exception'))->setContext(['k3' => 'v3']),
+            (new ExceptionWithContext('Warning exception'))->setContext(['k3' => 'v3']),
             'application',
             $context
         );
         \Yii::error(
-            (new \Beter\Yii2BeterLogging\ExceptionWithContext('Error exception'))->setContext(['k4' => 'v4']),
+            (new ExceptionWithContext('Error exception'))->setContext(['k4' => 'v4']),
             'application',
             $context
         );

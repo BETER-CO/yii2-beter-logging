@@ -45,7 +45,14 @@ $result = somemethod($arg);
 Yii::info('somemethod result', 'application', ['arg' => $arg, 'result' => $result]);
 ```
 
-Or pass context to exceptions (`yii2-beter-logging` extends `yii\log\Logger::log()` for exception processing too).
+You may pass context to exceptions too. To do this you need to install
+[beter/exception-with-context](https://packagist.org/packages/beter/exception-with-context) package and:
+* use `Beter\ExceptionWithContext\ExceptionWithContext` class;
+* or any class that extends `Beter\ExceptionWithContext\ExceptionWithContext`;
+* or you may create your own class that implements `Beter\ExceptionWithContext\ExceptionWithContextInterface`;
+* or add the trait `Beter\ExceptionWithContext\ExceptionWithContextTrait` to your exception class.
+
+> Check https://github.com/BETER-CO/php-exception-with-context for more details.
 
 ```php
 
@@ -55,9 +62,9 @@ function somefunc() {
         'headers' => Yii::$app->request->getHeaders,
     ];
     
-    $exception = new Beter\Yii2BeterLogging\ExceptionWithContext('Something went wrong', 0, null, $exceptionContext);
+    $exception = new Beter\ExceptionWithContext\ExceptionWithContext('Something went wrong', 0, null, $exceptionContext);
     // or
-    $exception = (new Beter\Yii2BeterLogging\ExceptionWithContext('Something went wrong'))->setContext($exceptionContext);
+    $exception = (new Beter\ExceptionWithContext\ExceptionWithContext('Something went wrong'))->setContext($exceptionContext);
     throw $exception;
 }
 
@@ -110,12 +117,14 @@ After that, you need to change paths in `cli` and `web` bootstrappers:
 ## Exceptions with context
 
 You have 2 options.
-1. You may use [`Beter\Yii2BeterLogging\ExceptionWithContext` class](https://github.com/BETER-CO/yii2-beter-logging/blob/master/src/ExceptionWithContext.php)
+1. You may use [`Beter\ExceptionWithContext\ExceptionWithContext` class](https://github.com/BETER-CO/php-exception-with-context/blob/master/src/ExceptionWithContext.php)
 class as a base or custom exception in your app.
 [Check an example for the yii app](https://github.com/BETER-CO/yii2-beter-logging/blob/master/deploy/data/php/root/var/www/html/exception/ExceptionWithContext.php).
-2. You may add [`Beter\Yii2BeterLogging\ExceptionWithContextTrait` trait](https://github.com/BETER-CO/yii2-beter-logging/blob/master/src/ExceptionWithContextTrait.php)
+2. You may add [`Beter\ExceptionWithContext\ExceptionWithContextTrait` trait](https://github.com/BETER-CO/php-exception-with-context/blob/master/src/ExceptionWithContextTrait.php)
 to your current exception implementations.
-[Check an example for the yii app](https://github.com/BETER-CO/yii2-beter-logging/blob/master/deploy/data/php/root/var/www/html/exception/ExceptionWithTrait.php)
+[Check an example for the yii app](https://github.com/BETER-CO/yii2-beter-logging/blob/master/deploy/data/php/root/var/www/html/exception/ExceptionWithTrait.php).
+3. You may create your own class that extends `\Exception`
+class and implements [`Beter\ExceptionWithContext\ExceptionWithContextInterface` interface](https://github.com/BETER-CO/php-exception-with-context/blob/master/src/ExceptionWithContextInterface.php)
 
 `yii2-beter-logging` support nested exceptions too. The first exception in the chain may not be an object that
 implements [`Beter\Yii2BeterLogging\ExceptionWithContextInterface`](https://github.com/BETER-CO/yii2-beter-logging/blob/master/src/ExceptionWithContextInterface.php).

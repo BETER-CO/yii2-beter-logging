@@ -6,7 +6,7 @@ use Yii;
 use yii\log\Target;
 use yii\log\Logger as YiiLogger;
 use Monolog\Logger as MonologLogger;
-use Beter\Yii2BeterLogging\ExceptionWithContextInterface;
+use Beter\ExceptionWithContext\ExceptionWithContextInterface;
 use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
 use Beter\Yii2BeterLogging\Exception\UnknownLogLevelException;
 use Beter\Yii2BeterLogging\Exception\UnsupportedMessageStructureException;

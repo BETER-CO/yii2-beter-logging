@@ -22,7 +22,8 @@
         "php": ">=7.2.5",
         "yiisoft/yii2": "^2.0",
         "monolog/monolog": "^2",
-        "psr/log": "^1"
+        "psr/log": "^1",
+        "beter/exception-with-context": "^1.0"
     },
     "repositories": [
         {

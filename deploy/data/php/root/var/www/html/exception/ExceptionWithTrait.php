@@ -2,10 +2,7 @@
 
 namespace app\exception;
 
-use Beter\Yii2BeterLogging\ExceptionWithContextTrait;
-use Beter\Yii2BeterLogging\ExceptionWithContextInterface;
-
-class ExceptionWithTrait implements ExceptionWithContextInterface
+class ExceptionWithTrait extends \Exception implements \Beter\ExceptionWithContext\ExceptionWithContextInterface
 {
-    use ExceptionWithContextTrait;
+    use \Beter\ExceptionWithContext\ExceptionWithContextTrait;
 }

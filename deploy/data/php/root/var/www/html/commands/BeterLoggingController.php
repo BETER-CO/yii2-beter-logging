@@ -2,7 +2,7 @@
 
 namespace app\commands;
 
-use Beter\Yii2BeterLogging\ExceptionWithContextInterface;
+use Beter\ExceptionWithContext\ExceptionWithContextInterface;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use app\helpers\BeterLoggingInitializer;

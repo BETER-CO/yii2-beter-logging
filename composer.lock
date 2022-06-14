@@ -4,8 +4,57 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7c3d84b32d51b3c3176ce1210b879ae1",
+    "content-hash": "7f840f25ea6b0730c80cbe42b173884b",
     "packages": [
+        {
+            "name": "beter/exception-with-context",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BETER-CO/php-exception-with-context.git",
+                "reference": "f385f9daa6c75e489bcf49b408d6601212660f4b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BETER-CO/php-exception-with-context/zipball/f385f9daa6c75e489bcf49b408d6601212660f4b",
+                "reference": "f385f9daa6c75e489bcf49b408d6601212660f4b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Beter\\ExceptionWithContext\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Menshikov",
+                    "email": "d.menshikov@gmail.com"
+                }
+            ],
+            "description": "Interface, Trait and Class of the exception with a context",
+            "homepage": "https://github.com/BETER-CO/php-exception-with-context",
+            "keywords": [
+                "Context",
+                "beter",
+                "error",
+                "exception",
+                "exception with context",
+                "exception-wtih-context"
+            ],
+            "support": {
+                "issues": "https://github.com/BETER-CO/php-exception-with-context/issues",
+                "source": "https://github.com/BETER-CO/php-exception-with-context/tree/1.0.1"
+            },
+            "time": "2022-06-10T11:16:32+00:00"
+        },
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
