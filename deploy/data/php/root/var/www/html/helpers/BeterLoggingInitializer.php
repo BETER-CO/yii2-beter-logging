@@ -3,8 +3,8 @@
 namespace app\helpers;
 
 use Yii;
-use Beter\Yii2BeterLogging\ProxyLogTarget;
-use Beter\Yii2BeterLogging\MonologComponent;
+use Beter\Yii2\Logging\ProxyLogTarget;
+use Beter\Yii2\Logging\MonologComponent;
 
 class BeterLoggingInitializer
 {

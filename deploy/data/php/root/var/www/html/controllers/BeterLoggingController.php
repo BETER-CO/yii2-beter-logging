@@ -350,7 +350,7 @@ class BeterLoggingController extends Controller
         BeterLoggingInitializer::initTargetLog($targetLogComponentDefinition);
 
         $traceLevel = 3;
-        $categories = ['application', 'Beter\Yii2BeterLogging\*'];
+        $categories = ['application', 'Beter\Yii2\Logging\*'];
         $except = [];
         $levels = ['error', 'warning', 'info'];
         $newLogComponentDefinition = BeterLoggingInitializer::createLogComponentDefinition(
@@ -530,13 +530,13 @@ class BeterLoggingController extends Controller
         \Yii::warning('Warning message', 'application');
         \Yii::error('Error message', 'application');
 
-        /** @var \Beter\Yii2BeterLogging\MonologComponent $monologComponent */
+        /** @var \Beter\Yii2\Logging\MonologComponent $monologComponent */
         $monologComponent = \Yii::$app->get(BeterLoggingInitializer::TARGET_LOG_COMPONENT);
         $stats = [];
 
         foreach ($monologComponent->getStats() as $logChannelName => $channelHandlers) {
             $stats[$logChannelName] = [];
-            /** @var \Beter\Yii2BeterLogging\Handler\Stats $handlerStats */
+            /** @var \Beter\Yii2\Logging\Handler\Stats $handlerStats */
             foreach ($channelHandlers as $handlerName => $handlerStats) {
                 $execTimes = [];
                 foreach ($handlerStats->getHandleExecTimes() as $value) {

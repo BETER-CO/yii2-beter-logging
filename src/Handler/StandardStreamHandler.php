@@ -1,9 +1,9 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Handler;
+namespace Beter\Yii2\Logging\Handler;
 
 use Monolog\Handler\StreamHandler;
-use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
+use Beter\Yii2\Logging\Exception\InvalidConfigException;
 
 class StandardStreamHandler
     extends StreamHandler

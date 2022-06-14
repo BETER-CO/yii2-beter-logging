@@ -92,7 +92,7 @@ try {
 This class extends `yii\log\Logger` and redefines
 [standard `log` method](https://www.yiiframework.com/doc/api/2.0/yii-log-logger#log()-detail). So,
 `YiiLoggerWithContext::log()` allows to add an array as a set of context data. Method doesn't break backward
-compatibility, so you may safely change `yii\log\Logger` to `Beter\Yii2BeterLogging\YiiLoggerWithContext`.
+compatibility, so you may safely change `yii\log\Logger` to `Beter\Yii2\Logging\YiiLoggerWithContext`.
 
 ### `YiiBase` custom implementation
 
@@ -127,7 +127,7 @@ to your current exception implementations.
 class and implements [`Beter\ExceptionWithContext\ExceptionWithContextInterface` interface](https://github.com/BETER-CO/php-exception-with-context/blob/master/src/ExceptionWithContextInterface.php)
 
 `yii2-beter-logging` support nested exceptions too. The first exception in the chain may not be an object that
-implements [`Beter\Yii2BeterLogging\ExceptionWithContextInterface`](https://github.com/BETER-CO/yii2-beter-logging/blob/master/src/ExceptionWithContextInterface.php).
+implements [`Beter\Yii2\Logging\ExceptionWithContextInterface`](https://github.com/BETER-CO/yii2-beter-logging/blob/master/src/ExceptionWithContextInterface.php).
 
 Few [`ProxyLogTarget`](https://github.com/BETER-CO/yii2-beter-logging/blob/master/src/ProxyLogTarget.php) settings
 control `depth` of check for nested exceptions and max amount of context entries that must be collected:

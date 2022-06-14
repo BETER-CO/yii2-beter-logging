@@ -9,7 +9,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Beter\\Yii2BeterLogging\\": "src/"
+            "Beter\\Yii2\\Logging\\": "src/"
         }
     },
     "authors": [

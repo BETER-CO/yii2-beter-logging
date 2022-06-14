@@ -1,8 +1,8 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Formatter;
+namespace Beter\Yii2\Logging\Formatter;
 
-use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
+use Beter\Yii2\Logging\Exception\InvalidConfigException;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Logger;
 use Monolog\Utils;

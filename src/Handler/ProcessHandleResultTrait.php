@@ -1,9 +1,9 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Handler;
+namespace Beter\Yii2\Logging\Handler;
 
-use Beter\Yii2BeterLogging\Exception\HandleException;
-use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
+use Beter\Yii2\Logging\Exception\HandleException;
+use Beter\Yii2\Logging\Exception\InvalidConfigException;
 
 trait ProcessHandleResultTrait {
 

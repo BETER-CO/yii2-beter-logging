@@ -1,6 +1,6 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Exception;
+namespace Beter\Yii2\Logging\Exception;
 
 class HandleException extends \Exception
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Beter\Yii2BeterLogging;
+namespace Beter\Yii2\Logging;
 
-use Beter\Yii2BeterLogging\Handler\HandlerWithHandleErrorProcessingInterface;
+use Beter\Yii2\Logging\Handler\HandlerWithHandleErrorProcessingInterface;
 
 use Yii;
 use Monolog\Logger;
@@ -11,15 +11,15 @@ use Monolog\Handler\FirePHPHandler;
 use Monolog\Formatter\WildfireFormatter;
 use Monolog\Formatter\FormatterInterface;
 use Monolog\Processor\ProcessorInterface;
-use Beter\Yii2BeterLogging\Handler\LogstashHandler;
-use Beter\Yii2BeterLogging\Handler\StandardStreamHandler;
-use Beter\Yii2BeterLogging\Handler\HandlerWithStatsInterface;
-use Beter\Yii2BeterLogging\Processor\BasicProcessor;
-use Beter\Yii2BeterLogging\Processor\CorrelationIdProcessor;
-use Beter\Yii2BeterLogging\Formatter\LogstashFormatter;
-use Beter\Yii2BeterLogging\Formatter\ConsoleFormatter;
-use Beter\Yii2BeterLogging\Exception\LoggerNotFoundException;
-use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
+use Beter\Yii2\Logging\Handler\LogstashHandler;
+use Beter\Yii2\Logging\Handler\StandardStreamHandler;
+use Beter\Yii2\Logging\Handler\HandlerWithStatsInterface;
+use Beter\Yii2\Logging\Processor\BasicProcessor;
+use Beter\Yii2\Logging\Processor\CorrelationIdProcessor;
+use Beter\Yii2\Logging\Formatter\LogstashFormatter;
+use Beter\Yii2\Logging\Formatter\ConsoleFormatter;
+use Beter\Yii2\Logging\Exception\LoggerNotFoundException;
+use Beter\Yii2\Logging\Exception\InvalidConfigException;
 use yii\base\Component;
 
 class MonologComponent extends Component

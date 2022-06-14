@@ -22,7 +22,7 @@ But `yii2-beter-logging` makes your life easier and solve described issues.
 
 ## Env Settings
 
-To implement `yii2-beter-logging` approach just use `Beter\Yii2BeterLogging\EnvVarSettings` class. This class contains
+To implement `yii2-beter-logging` approach just use `Beter\Yii2\Logging\EnvVarSettings` class. This class contains
 a set of helpers that checks variables in the `$_SERVER` and checks variables set up as an environment variables.
 
 > `$_SERVER` super globals may contain variables passed by nginx, apache or any other webserver. As an example,
@@ -34,7 +34,7 @@ Here is a sample script that demonstrates this approach for a specific script
 ```php
 <?php
 
-use Beter\Yii2BeterLogging\EnvVarSettings;
+use Beter\Yii2\Logging\EnvVarSettings;
 
 $useColors = EnvVarSettings::colorSettingEnabled() ?? true;
 $machineReadableFormat = EnvVarSettings::machineReadableSettingEnabled() ?? false;
@@ -99,9 +99,9 @@ You may use these methods to implement logic in your config files. Here is an ex
 
 ```php
 <?php
-use Beter\Yii2BeterLogging\MonologComponent;
-use Beter\Yii2BeterLogging\ProxyLogTarget;
-use Beter\Yii2BeterLogging\EnvVarSettings;
+use Beter\Yii2\Logging\MonologComponent;
+use Beter\Yii2\Logging\ProxyLogTarget;
+use Beter\Yii2\Logging\EnvVarSettings;
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
@@ -139,7 +139,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'monolog' => [
-            'class' => Beter\Yii2BeterLogging\MonologComponent::class,
+            'class' => Beter\Yii2\Logging\MonologComponent::class,
             'channels' => [
                 'main' => [
                     'handler' => [

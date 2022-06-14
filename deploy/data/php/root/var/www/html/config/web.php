@@ -34,7 +34,7 @@ $config = [
             'useFileTransport' => true,
         ],
         'monolog' => [
-            'class' => Beter\Yii2BeterLogging\MonologComponent::class,
+            'class' => Beter\Yii2\Logging\MonologComponent::class,
             'channels' => [
                 'main' => [
                     [
@@ -66,7 +66,7 @@ $config = [
             'flushInterval' => 1,
             'targets'       => [
                 'monolog-proxy'      => [
-                    'class'          => Beter\Yii2BeterLogging\ProxyLogTarget::class,
+                    'class'          => Beter\Yii2\Logging\ProxyLogTarget::class,
                     'targetLogComponent' => [
                         'componentName' => 'monolog',
                         'logChannel' => 'main'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Beter\Yii2BeterLogging;
+namespace Beter\Yii2\Logging;
 
 use yii\log\Logger;
 

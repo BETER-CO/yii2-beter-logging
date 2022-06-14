@@ -50,7 +50,7 @@ To use this extension, you have to configure it in your application configuratio
 
 ### Configure Yii2 log component
 
-Add `Beter\Yii2BeterLogging\ProxyLogTarget` class to the list of your log Targets
+Add `Beter\Yii2\Logging\ProxyLogTarget` class to the list of your log Targets
 
 ```
 'log' => [
@@ -60,7 +60,7 @@ Add `Beter\Yii2BeterLogging\ProxyLogTarget` class to the list of your log Target
         // other log targets
 
         'monolog-proxy' => [
-            'class' => Beter\Yii2BeterLogging\ProxyLogTarget::class,
+            'class' => Beter\Yii2\Logging\ProxyLogTarget::class,
             'targetLogComponent' => [
                 'componentName' => 'monolog',
                 'logChannel' => 'main'
@@ -87,10 +87,10 @@ all settings that yii\log\Target has, but with limitations:
 See [details](#further-reading).
 
 The only additional setting is `targetLogComponent` section. This is not standard setting for yii2 log Target.
-This section is mandatory and it connects `Beter\Yii2BeterLogging\ProxyLogTarget` with
-`Beter\Yii2BeterLogging\MonologComponent`.
+This section is mandatory and it connects `Beter\Yii2\Logging\ProxyLogTarget` with
+`Beter\Yii2\Logging\MonologComponent`.
 
-`Beter\Yii2BeterLogging\MonologComponent` may be configured with few monolog channels, but `ProxyLogTarget`
+`Beter\Yii2\Logging\MonologComponent` may be configured with few monolog channels, but `ProxyLogTarget`
 requires to specify the only one.
 
 > If you need more monolog channels you may setup few `ProxyLogTarget`'s.
@@ -99,24 +99,24 @@ Check further doc sections for more details.
 
 ### Configure MonologComponent
 
-Log Target passes log entries to `Beter\Yii2BeterLogging\MonologComponent` and then
-`Beter\Yii2BeterLogging\MonologComponent` passes them to
+Log Target passes log entries to `Beter\Yii2\Logging\MonologComponent` and then
+`Beter\Yii2\Logging\MonologComponent` passes them to
 [`Monolog\Logger`](https://github.com/Seldaek/monolog/blob/2.x/doc/01-usage.md).
 
-`Beter\Yii2BeterLogging\MonologComponent` configures custom handlers shipped with `yii2-beter-logging`. 
+`Beter\Yii2\Logging\MonologComponent` configures custom handlers shipped with `yii2-beter-logging`. 
 
 The list of handlers supported:
 * `logstash`
 * `standard_stream`
 * `firephp`
 
-So, configure `Beter\Yii2BeterLogging\MonologComponent` class. Don't forget to use *the same name of
+So, configure `Beter\Yii2\Logging\MonologComponent` class. Don't forget to use *the same name of
 the component and monolog channel name* as was specified in `targetLogComponent` setting of the
-`Beter\Yii2BeterLogging\ProxyLogTarget` (`"monolog"` and `"main"` in this example).
+`Beter\Yii2\Logging\ProxyLogTarget` (`"monolog"` and `"main"` in this example).
 
 ```
 'monolog' => [
-    'class' => Beter\Yii2BeterLogging\MonologComponent::class,
+    'class' => Beter\Yii2\Logging\MonologComponent::class,
     'channels' => [
         'main' => [
             'handler' => [
@@ -182,7 +182,7 @@ the component and monolog channel name* as was specified in `targetLogComponent`
 
 To not lose any log entries you need to
 [boostrap](https://www.yiiframework.com/doc/guide/2.0/en/structure-applications#bootstrap)
-`Beter\Yii2BeterLogging\MonologComponent` before any other component. `log` component must be the second component
+`Beter\Yii2\Logging\MonologComponent` before any other component. `log` component must be the second component
 in the list.
 
 ```

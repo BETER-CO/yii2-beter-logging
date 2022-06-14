@@ -6,7 +6,7 @@ use Beter\ExceptionWithContext\ExceptionWithContextInterface;
 use yii\console\Controller;
 use yii\console\ExitCode;
 use app\helpers\BeterLoggingInitializer;
-use Beter\Yii2BeterLogging\EnvVarSettings;
+use Beter\Yii2\Logging\EnvVarSettings;
 use app\exception\ExceptionWithTrait;
 use app\exception\ExceptionWithContext;
 

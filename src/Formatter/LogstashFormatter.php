@@ -1,9 +1,9 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Formatter;
+namespace Beter\Yii2\Logging\Formatter;
 
-use Beter\Yii2BeterLogging\Formatter\FormatTransformer;
-use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
+use Beter\Yii2\Logging\Formatter\FormatTransformer;
+use Beter\Yii2\Logging\Exception\InvalidConfigException;
 use Monolog\Formatter\NormalizerFormatter;
 
 class LogstashFormatter extends NormalizerFormatter {

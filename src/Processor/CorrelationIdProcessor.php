@@ -1,8 +1,8 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Processor;
+namespace Beter\Yii2\Logging\Processor;
 
-use Beter\Yii2BeterLogging\Exception\InvalidConfigException;
+use Beter\Yii2\Logging\Exception\InvalidConfigException;
 use Monolog\Processor\ProcessorInterface;
 
 class CorrelationIdProcessor implements ProcessorInterface

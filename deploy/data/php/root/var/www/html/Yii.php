@@ -100,7 +100,7 @@ class Yii extends BaseYii
             return self::$_logger;
         }
 
-        return self::$_logger = static::createObject(Beter\Yii2BeterLogging\YiiLoggerWithContext::class);
+        return self::$_logger = static::createObject(Beter\Yii2\Logging\YiiLoggerWithContext::class);
     }
 
     /**

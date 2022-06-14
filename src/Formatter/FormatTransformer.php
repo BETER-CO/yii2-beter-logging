@@ -1,6 +1,6 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Formatter;
+namespace Beter\Yii2\Logging\Formatter;
 
 /**
  * Set of methods to remap Monolog-specific array that represents log record

@@ -1,6 +1,6 @@
 <?php
 
-namespace Beter\Yii2BeterLogging\Handler;
+namespace Beter\Yii2\Logging\Handler;
 
 use Monolog\Handler\SocketHandler;
 
