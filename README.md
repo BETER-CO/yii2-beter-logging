@@ -18,6 +18,14 @@ Features:
 * supports logstash tcp and udp transport;
 * native support of yii log features.
 
+Related packages you need to try:
+* [beter/exception-with-context](https://packagist.org/packages/beter/exception-with-context) is used by
+`yii2-beter-logging` package to bring support of context data storing in the exception.
+[Check the doc](doc/logging-with-context.md).
+* [yii2-log-request-response](https://packagist.org/packages/beter/yii2-log-request-response) package contains
+component the component that logs user info, request related info, headers, execution time and so on for requests
+and response in CLI scripts and WEB.
+
 ## Installation
 
 The preferred way to install this extension is through [composer](https://getcomposer.org/).
@@ -25,13 +33,13 @@ The preferred way to install this extension is through [composer](https://getcom
 Either run
 
 ```
-composer require beter/yii2-beter-loging:"~1.0.0"
+composer require beter/yii2-beter-logging
 ```
 
 or add
 
 ```
-"beter/yii2-beter-loging": "~1.0.0"
+"beter/yii2-beter-logging": "~1.0.0" // add the latest version
 ```
 
 to the require section of your composer.json.
