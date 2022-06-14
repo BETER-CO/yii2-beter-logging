@@ -56,6 +56,7 @@ $config = [
                         'env' => YII_ENV, // dev, prod, etc
                         'app' => 'myapp',
                         'service' => 'api',
+                        'exec_type' => 'web',
                         'host' => gethostname(), // or set it as you want
                     ]
                 ],

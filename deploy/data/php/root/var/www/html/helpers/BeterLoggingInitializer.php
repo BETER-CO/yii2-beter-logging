@@ -139,7 +139,8 @@ class BeterLoggingInitializer
             'name' => 'basic_processor',
             'env' => YII_ENV, // dev, prod, etc
             'app' => 'yii-test-app',
-            'service' => 'web',
+            'service' => 'my-service',
+            'exec_type' => php_sapi_name() === 'cli' ? 'cli' : 'web',
             'host' => gethostname(), // or set it as you want
         ];
 

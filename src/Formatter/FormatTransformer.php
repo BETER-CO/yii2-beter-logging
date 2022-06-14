@@ -8,7 +8,7 @@ namespace Beter\Yii2\Logging\Formatter;
 class FormatTransformer
 {
 
-    protected const ROOT_DEFAULT_KEYS_TO_MOVE = ['datetime', 'host', 'app', 'service', 'env', 'message'];
+    protected const ROOT_DEFAULT_KEYS_TO_MOVE = ['datetime', 'host', 'app', 'service', 'env', 'execType', 'message'];
     protected const CONTEXT_DEFAULT_KEYS_TO_MOVE = ['log.trace', 'log.category', 'exception'];
 
     /**

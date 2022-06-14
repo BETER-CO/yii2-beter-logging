@@ -115,6 +115,10 @@ class ConsoleFormatter extends LineFormatter
             $output .= '[' . $this->colorize($this->stringify($vars['service']), $levelColor) . ']';
         }
 
+        if (isset($vars['execType'])) {
+            $output .= '[' . $this->colorize($this->stringify($vars['execType']), $levelColor) . ']';
+        }
+
         $output .= " " . $this->colorize($vars['message'], $levelColor);
 
         if (isset($vars['fields']['log.category']) && !empty($vars['fields']['log.category'])) {

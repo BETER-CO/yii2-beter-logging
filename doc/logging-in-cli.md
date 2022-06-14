@@ -156,7 +156,8 @@ $config = [
                             'name' => 'basic_processor',
                             'env' => YII_ENV, // dev, prod, etc
                             'app' => 'myapp',
-                            'service' => 'cli',
+                            'service' => 'myservice',
+                            'exec_type' => 'cli', // or web, or sapi name
                             'host' => gethostname(), // or set it as you want
                         ]
                     ],

@@ -164,6 +164,7 @@ the component and monolog channel name* as was specified in `targetLogComponent`
                     'env' => YII_ENV, // dev, prod, etc
                     'app' => 'myapp',
                     'service' => 'api',
+                    'exec_type' => 'web', // or cli, or etc
                     'host' => gethostname(), // or set it as you want
                 ],
                 [

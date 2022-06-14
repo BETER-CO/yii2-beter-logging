@@ -173,7 +173,7 @@ class MonologComponent extends Component
     }
 
     /**
-     * Creates Monolog Processor. Only supports 'basic_processor' right now.
+     * Creates Monolog Processor. Supports 'basic_processor', 'correlation_id_processor'.
      *
      * @param array $config passed from yii config to initialize MonologComponent
      *
@@ -188,13 +188,15 @@ class MonologComponent extends Component
         $name = $config['name'];
         switch ($name) {
             case 'basic_processor':
-                foreach (['env', 'app', 'service', 'host'] as $settingName) {
+                foreach (['env', 'app', 'service', 'exec_type', 'host'] as $settingName) {
                     if (!isset($config[$settingName])) {
                         throw new InvalidConfigException("Processor '$name' must have '$settingName' setting");
                     }
                 }
 
-                return new BasicProcessor($config['env'], $config['app'], $config['service'], $config['host']);
+                return new BasicProcessor(
+                    $config['env'], $config['app'], $config['service'], $config['exec_type'], $config['host']
+                );
             case 'correlation_id_processor':
                 if (isset($config['length']) && !is_int($config['length'])) {
                     throw new InvalidConfigException("Processor '$name' setting 'length' must be an int");
