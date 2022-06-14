@@ -1,5 +1,13 @@
 # Changelog
 
+### 2.0.0
+
+- Namespace was changed. Beter\Yii2BeterLogging -> Beter\Yii2\Logging.
+- ExceptionWithContext.php, ExceptionWithContextInterface.php and ExceptionWithContextTrait.php were removed
+from this package. Use `beter/exception-with-context` package instead.
+- basic_processor gets support of exec_type field.
+- docker-compose.dev.yml and php.dev.Dockerfile refactoring.
+
 ### 1.2.2
 
 - Before this release empty values of env settings (like `NO_COLOR`) and values with any string that differ from
