@@ -8,8 +8,8 @@ services:
       context: .
       dockerfile: "php.dev.Dockerfile"
     volumes:
-      - "./yii-test-app-src:/var/www/html"
-      - "./:/yii2-beter-logging"
+      - "./test-app-src:/var/www/html"
+      - "./:/package-src"
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -19,7 +19,7 @@ services:
     ports:
       - "${HOST_NGINX_PORT:-8080}:80"
     volumes:
-      - "./yii-test-app-src:/var/www/html"
+      - "./test-app-src:/var/www/html"
       - "./deploy/data/nginx/root/etc/nginx/nginx.conf:/etc/nginx/nginx.conf"
       - "./deploy/data/nginx/root/etc/nginx/fastcgi_params:/etc/nginx/fastcgi_params"
       - "./deploy/data/nginx/root/etc/nginx/conf.d:/etc/nginx/conf.d"

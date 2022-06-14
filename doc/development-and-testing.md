@@ -13,11 +13,11 @@ The whole pipeline for the first setup is the following:
 `docker create --name yii2-beter-logging-php-tmp-for-copy yii2-beter-logging-php:latest`.
 *But don't launch docker container!* You need the container only for file copying.
 4. Copy the content of the `/var/www/html` folder from the container to the host machine. Run it from the root path
-of this repository - `docker cp -L yii2-beter-logging-php-tmp-for-copy:/var/www/html yii-test-app-src`.
+of this repository - `docker cp -L yii2-beter-logging-php-tmp-for-copy:/var/www/html test-app-src`.
 5. Delete container for copying `docker rm -f yii2-beter-logging-php-tmp-for-copy`.
 6. Run containers after that. `docker-compose -f docker-compose.dev.yml -p yii2-beter-logging up`.
 
-> `docker-compose` without `-build` flag will not rebuild the Docker image created with `docker build`. Add this flag
+> `docker-compose` without `--build` flag will not rebuild the Docker image created with `docker build`. Add this flag
 > if yuu need rebuild image after initial launch.
 
 `docker-compose` will mount all necessary volumes to make it possible develop and debug application.
@@ -42,21 +42,21 @@ docker-compose -f docker-compose.dev.yml -p yii2-beter-logging up yii2-beter-log
 
 ### Recreation of containers
 
-If you want to update repository and recreate docker image, for example, if new version of `yii-test-app` was released,
-you can remove the whole `yii-test-app-src` folder and redo all the steps in the ["Launch it"](#launch-it) section.
+If you want to update repository and recreate docker image, for example, if new version of `test-app` was released,
+you can remove the whole `test-app-src` folder and redo all the steps in the ["Launch it"](#launch-it) section.
 
 ### Explanation
 
-1`composer`, `xdebug` and all needed extensions are installed during the Docker build phase.
+1. `composer`, `xdebug` and all needed extensions are installed during the Docker build phase.
 2. `composer` installs `yii` boilerplate project.
 3. Next step in the build pipeline copies custom files from the repo
    `yii2-beter-logging/deploy/data/php/root/var/www/html` to the image.
 4. Custom files contains php scripts and updated `composer.json`, so `composer update` will be executed.
-5. Custom `composer.json` specifies `"beter/yii2-beter-logging": "dev-main"` and symlinks `/yii2-beter-logging` folder
+5. Custom `composer.json` specifies `"beter/yii2-beter-logging": "dev-main"` and symlinks `/package-src` folder
    in the container with the `beter/yii2-beter-logging` package. This requires to mount volume later, but gives possibility
    to change source files right in the `src/` folder on the host machine and immediately see that changes inside running
    container.
-6. Folder `yii-test-app-src` is included to `.gitignore`, so it must not bother you.
+6. Folder `test-app-src` is included to `.gitignore`, so it must not bother you.
 
 > Note. Windows users must
 > [allow creation of symlinks](https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/create-symbolic-links).

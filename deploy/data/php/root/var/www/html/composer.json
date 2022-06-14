@@ -74,7 +74,7 @@
     },
     {
       "type": "path",
-      "url": "/yii2-beter-logging",
+      "url": "/package-src",
       "options": {
         "symlink": true
       }

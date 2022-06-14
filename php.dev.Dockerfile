@@ -27,13 +27,16 @@ RUN set -eux; \
 COPY ./deploy/data/php/root/ /
 
 RUN set -eux; \
-    export YII2_BETER_LOGGING_VERSION="1.2.2"; \
     export \
-      YII2_BETER_LOGGING_URL="https://github.com/BETER-CO/yii2-beter-logging/archive/refs/tags/${YII2_BETER_LOGGING_VERSION}.tar.gz" \
-      YII2_BETER_LOGGING_ARCH_DIR="yii2-beter-logging-${YII2_BETER_LOGGING_VERSION}" \
+      PACKAGE_VERSION="1.2.2" \
+      PACKAGE_ARCH_NAME="yii2-beter-logging" \
     ; \
-    curl -fsSL -o /yii2-beter-logging.tar.gz "$YII2_BETER_LOGGING_URL"; \
-    tar -xzf /yii2-beter-logging.tar.gz -C /tmp/; \
-    rm /yii2-beter-logging.tar.gz; \
-    mv /tmp/${YII2_BETER_LOGGING_ARCH_DIR} /yii2-beter-logging; \
+    export \
+      PACKAGE_URL="https://github.com/BETER-CO/${PACKAGE_ARCH_NAME}/archive/refs/tags/${PACKAGE_VERSION}.tar.gz" \
+      PACKAGE_ARCH_DIR="${PACKAGE_ARCH_NAME}-${PACKAGE_VERSION}" \
+    ; \
+    curl -fsSL -o "/${PACKAGE_ARCH_NAME}.tar.gz" "$PACKAGE_URL"; \
+    tar -xzf "/${PACKAGE_ARCH_NAME}.tar.gz" -C /tmp/; \
+    rm "/${PACKAGE_ARCH_NAME}.tar.gz"; \
+    mv /tmp/${PACKAGE_ARCH_DIR} /package-src; \
     composer update
