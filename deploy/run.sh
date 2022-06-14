@@ -18,6 +18,8 @@ function help() {
   echo -e "  ${SC}help              ${CC}- Show all information about available commands."
   echo -e "  ${SC}reload.nginx      ${CC}- Send reload signal to nginx"
   echo -e "  ${SC}reload.php-fpm    ${CC}- Send reload signal to php-fpm"
+  echo -e "  ${SC}shell.nginx cmd   ${CC}- Run cmd command in the nginx container"
+  echo -e "  ${SC}shell.php-fpm cmd ${CC}- Run cmd in the php-fpm container"
   echo -e "  ${SC}lastmodified      ${CC}- Show last modified php files"
 }
 
@@ -31,6 +33,16 @@ reload.nginx() {
 
 reload.php-fpm() {
   docker-compose -f ${DOCKER_COMPOSE_FILE} exec ${PHP_SERVICE_NAME} sh -c 'kill -USR2 `cat /usr/local/var/run/php-fpm.pid`'
+}
+
+shell.nginx() {
+  cmd="$@"
+  docker-compose -f ${DOCKER_COMPOSE_FILE} exec ${NGINX_SERVICE_NAME} sh -c "$cmd"
+}
+
+shell.php-fpm() {
+  cmd="$@"
+  docker-compose -f ${DOCKER_COMPOSE_FILE} exec ${PHP_SERVICE_NAME} sh -c "$cmd"
 }
 
 lastmodified() {
