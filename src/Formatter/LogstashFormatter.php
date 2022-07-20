@@ -80,7 +80,7 @@ class LogstashFormatter extends NormalizerFormatter {
     {
         $traceArray = parent::normalizeException($e, $depth);
 
-        if ($this->traceDepth !== 0) {
+        if ($this->traceDepth !== 0 && isset($traceArray['trace']) && is_array($traceArray['trace'])) {
             $traceArray['trace'] = array_slice($traceArray['trace'], 0, $this->traceDepth);
         }
 
