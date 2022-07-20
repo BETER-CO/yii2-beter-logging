@@ -28,7 +28,7 @@ COPY ./deploy/data/php/root/ /
 
 RUN set -eux; \
     export \
-      PACKAGE_VERSION="1.2.2" \
+      PACKAGE_VERSION="2.0.1" \
       PACKAGE_ARCH_NAME="yii2-beter-logging" \
     ; \
     export \

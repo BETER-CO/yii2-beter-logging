@@ -1,5 +1,11 @@
 # Changelog
 
+### 2.0.1
+
+- Fatal error usually doesn't contain "file" and "line" fields in a stacktrace. This causes
+Monolog\Formatter\NormalizerFormatter to return normalized error without "trace" field at all. But code expects it.
+In this version this behavior was fixed. Check monolog related issue - https://github.com/Seldaek/monolog/issues/1736
+
 ### 2.0.0
 
 - Namespace was changed. Beter\Yii2BeterLogging -> Beter\Yii2\Logging.
