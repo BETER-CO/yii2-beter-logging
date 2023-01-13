@@ -12,13 +12,13 @@ class LogstashHandler
     use HandlerWithStatsTrait;
     use ProcessHandleResultTrait;
 
-    protected static array $allowedSocketTransport = ['tcp', 'udp'];
+    protected static array $allowedSocketTransport = ['tcp', 'udp', 'unix'];
 
     protected Stats $stats;
 
     /**
      * @param string $host
-     * @param int $port
+     * @param int $port Ignored if socket transport = unix
      * @param string $socketTransport
      * @param int $level The minimum logging level at which this handler will be triggered
      * @param bool $bubble Whether the messages that are handled can bubble up the stack or not
@@ -46,7 +46,10 @@ class LogstashHandler
             throw new \InvalidArgumentException("socketTransport $socketTransport is not supported");
         }
 
-        $connectionString = "$socketTransport://$host:$port";
+        $connectionString = "$socketTransport://$host";
+        if ($socketTransport !== 'unix') {
+            $connectionString = +":$port";
+        }
 
         parent::__construct(
             $connectionString,
