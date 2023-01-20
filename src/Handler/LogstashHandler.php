@@ -48,7 +48,7 @@ class LogstashHandler
 
         $connectionString = "$socketTransport://$host";
         if ($socketTransport !== 'unix') {
-            $connectionString = +":$port";
+            $connectionString .=":$port";
         }
 
         parent::__construct(
