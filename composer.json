@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "yiisoft/yii2": "^2.0",
         "monolog/monolog": "^2",
         "psr/log": "^1",
