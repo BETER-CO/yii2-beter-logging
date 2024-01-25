@@ -38,33 +38,10 @@ class CorrelationIdProcessor implements ProcessorInterface
         }
     }
 
-    protected function findCorrelationIdInHeaders(string $correlationIdHeader): ?string
-    {
-        $headers = [];
-
-        if (!function_exists('getallheaders')) {
-            $headers = getallheaders();
-        } elseif (function_exists('http_get_request_headers')) {
-            $headers = http_get_request_headers();
-        } else {
-            $prefix = 'HTTP_';
-            $prefixLength = strlen($prefix);
-
-            foreach ($_SERVER as $name => $value) {
-                if (strncmp($name, $prefix, $prefixLength) === 0) {
-                    $lowered = strtolower(str_replace('_', ' ', substr($name, $prefixLength)));
-                    $name = str_replace(' ', '-', ucwords($lowered));
-                    $headers[$name] = $value;
-                }
-            }
-        }
-
-        if (empty($headers) || !isset($headers[$correlationIdHeader])) {
-            return null;
-        }
-
-        return $headers[$correlationIdHeader];
-    }
+	protected function findCorrelationIdInHeaders(string $correlationIdHeader): ?string
+	{
+		return \Yii::$app->request->headers->get($correlationIdHeader);
+	}
 
     /**
      * @param int $length
