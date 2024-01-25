@@ -42,7 +42,7 @@ class CorrelationIdProcessor implements ProcessorInterface
     {
         $headers = [];
 
-        if (!function_exists('getallheaders')) {
+        if (function_exists('getallheaders')) {
             $headers = getallheaders();
         } elseif (function_exists('http_get_request_headers')) {
             $headers = http_get_request_headers();
