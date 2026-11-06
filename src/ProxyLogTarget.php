@@ -318,7 +318,7 @@ class ProxyLogTarget extends Target
     public function convertToPsr3Level($yiiLogLevel) {
         if (!isset(static::$_yiiToPsr3LogLevelMapping[$yiiLogLevel])) {
             $this->addDelayedError(
-                new UnknownLogLevelException("Unknown yii log level ${yiiLogLevel}, replaced with INFO level"),
+                new UnknownLogLevelException("Unknown yii log level {$yiiLogLevel}, replaced with INFO level"),
                 YiiLogger::LEVEL_WARNING,
                 __METHOD__
             );
@@ -359,7 +359,7 @@ class ProxyLogTarget extends Target
 
         while (true) {
             if ($currentException instanceof ExceptionWithContextInterface) {
-                $context["exception${i}"] = $currentException->getContext();
+                $context["exception{$i}"] = $currentException->getContext();
 
                 if (count($context) >= $this->exceptionContextEntriesLimit) {
                     break;
